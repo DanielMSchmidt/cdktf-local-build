@@ -1,10 +1,10 @@
-import { App, TerraformStack, Testing } from "cdktf";
-import path from "path";
-import fs from "fs";
 import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
+import { App, TerraformStack, Testing } from "cdktf";
+import { Provider } from "cdktf-local-exec";
 import { Construct } from "constructs";
 
-import { Provider } from "cdktf-local-exec";
 import { CargoBuild } from "../src";
 
 const apply = (addConstructs: (scope: Construct) => void) => {

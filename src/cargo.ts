@@ -1,5 +1,3 @@
-import { Construct } from "constructs";
-import { LocalExec } from "cdktf-local-exec";
 import { resolve } from "path";
 import {
   IResolvable,
@@ -7,17 +5,18 @@ import {
   TerraformProvider,
   TerraformResourceLifecycle,
 } from "cdktf";
+import { LocalExec } from "cdktf-local-exec";
+import { Construct } from "constructs";
 
-type Arch = "arm" | "x86";
 export interface CargoOptions {
   /**
    * Architecture of the binary to build.
    *
    * @default "x86"
    */
-  arch?: Arch;
+  readonly arch?: "arm" | "x86";
 
-  projectName: string;
+  readonly projectName: string;
 
   // Inherited from LocalExec without command option
   /**

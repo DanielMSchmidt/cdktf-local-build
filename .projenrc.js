@@ -1,4 +1,5 @@
 const { CDKTFConstruct } = require("@dschmidt/cdktf-construct-base");
+
 const project = new CDKTFConstruct({
   author: "Daniel Schmidt",
   authorAddress: "danielmschmidt92@gmail.com",
@@ -8,9 +9,9 @@ const project = new CDKTFConstruct({
   description:
     "A construct that encapsulates different building methods, e.g. for Node, Rust, Docker.",
 
-  devDeps: ["@dschmidt/cdktf-construct-base@0.0.3"],
-  deps: ["cdktf-local-exec@0.0.0"],
-  peerDeps: ["@cdktf/provider-null@>=0.4.90"],
+  devDeps: ["@dschmidt/cdktf-construct-base@0.0.6"],
+  deps: [],
+  peerDeps: ["cdktf-local-exec@>=0.0.3", "@cdktf/provider-null@>=0.4.90"],
   gitignore: ["test/cargo/testproject/target/"],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */

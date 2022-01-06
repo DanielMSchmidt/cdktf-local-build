@@ -1,8 +1,8 @@
+import { execSync } from "child_process";
+import path from "path";
 import { NullProvider } from "@cdktf/provider-null";
 import { App, TerraformStack, Testing } from "cdktf";
-import { execSync } from "child_process";
 import { Construct } from "constructs";
-import path from "path";
 
 export const apply = (addConstructs: (scope: Construct) => void) => {
   const app = new App();
