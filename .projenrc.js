@@ -1,15 +1,17 @@
-const { CDKTFConstruct } = require('@dschmidt/cdktf-construct-base');
+const { CDKTFConstruct } = require("@dschmidt/cdktf-construct-base");
 const project = new CDKTFConstruct({
-  author: 'Daniel Schmidt',
-  authorAddress: 'danielmschmidt92@gmail.com',
-  defaultReleaseBranch: 'main',
-  name: 'cdktf-local-build',
-  repositoryUrl: 'https://github.com/DanielMSchmidt/cdktf-local-build.git',
+  author: "Daniel Schmidt",
+  authorAddress: "danielmschmidt92@gmail.com",
+  defaultReleaseBranch: "main",
+  name: "cdktf-local-build",
+  repositoryUrl: "https://github.com/DanielMSchmidt/cdktf-local-build.git",
   description:
-    'A construct that encapsulates different building methods, e.g. for Node, Rust, Docker.',
+    "A construct that encapsulates different building methods, e.g. for Node, Rust, Docker.",
 
-  devDeps: ['@dschmidt/cdktf-construct-base@0.0.1'],
-  // deps: [],                /* Runtime dependencies of this module. */
+  devDeps: ["@dschmidt/cdktf-construct-base@0.0.1"],
+  deps: ["cdktf-local-exec@0.0.0"],
+  peerDeps: ["@cdktf/provider-null@>=0.4.90"],
+  gitignore: ["test/cargo/testproject/target/"],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
