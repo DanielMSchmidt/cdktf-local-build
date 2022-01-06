@@ -4,6 +4,11 @@ import { Testing } from "cdktf";
 import { DockerBuild } from "../src";
 import { apply } from "./helper";
 
+const getCommand = (synthJson: string, resourceName: string) =>
+  JSON.parse(synthJson).resource.null_resource[resourceName].provisioner[0][
+    "local-exec"
+  ].command;
+
 describe("Docker", () => {
   it("can build a docker image", () => {
     execSync("docker rmi -f cdktf/test:besttag");
@@ -23,28 +28,63 @@ describe("Docker", () => {
 
   it("can push images", () => {
     expect(
-      JSON.parse(
+      getCommand(
         Testing.synthScope((scope) => {
           new DockerBuild(scope, "docker-build", {
             cwd: path.resolve(__dirname, "docker", "testproject"),
             tag: "cdktf/test:besttag",
           });
-        })
-      ).resource.null_resource["docker-build"].provisioner[0]["local-exec"]
-        .command
+        }),
+        "docker-build"
+      )
     ).toEqual(expect.stringContaining("docker push"));
 
     expect(
-      JSON.parse(
+      getCommand(
         Testing.synthScope((scope) => {
           new DockerBuild(scope, "docker-build", {
             cwd: path.resolve(__dirname, "docker", "testproject"),
             tag: "cdktf/test:besttag",
             push: false,
           });
-        })
-      ).resource.null_resource["docker-build"].provisioner[0]["local-exec"]
-        .command
+        }),
+        "docker-build"
+      )
     ).not.toEqual(expect.stringContaining("docker push"));
+  });
+
+  it("can auth against a registry", () => {
+    expect(
+      getCommand(
+        Testing.synthScope((scope) => {
+          new DockerBuild(scope, "docker-build", {
+            cwd: path.resolve(__dirname, "docker", "testproject"),
+            tag: "registry.example.com/cdktf/test:besttag",
+            auth: {
+              userName: "user",
+              password: "password",
+              proxyEndpoint: "https://registry.example.com",
+            },
+          });
+        }),
+        "docker-build"
+      )
+    ).toEqual(
+      expect.stringContaining(
+        "docker login -u user -p password https://registry.example.com &&"
+      )
+    );
+
+    expect(
+      getCommand(
+        Testing.synthScope((scope) => {
+          new DockerBuild(scope, "docker-build", {
+            cwd: path.resolve(__dirname, "docker", "testproject"),
+            tag: "cdktf/test:besttag",
+          });
+        }),
+        "docker-build"
+      )
+    ).not.toEqual(expect.stringContaining("docker login"));
   });
 });

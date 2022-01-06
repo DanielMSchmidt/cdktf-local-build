@@ -1,6 +1,11 @@
 import { LocalExec } from "cdktf-local-exec";
 import { Construct } from "constructs";
 
+export interface RegistryAuth {
+  readonly userName: string;
+  readonly password: string;
+  readonly proxyEndpoint: string;
+}
 export interface DockerBuildOptions {
   // Working directory to run the command in.
   readonly cwd: string;
@@ -15,22 +20,31 @@ export interface DockerBuildOptions {
   // If the image should be pushed to a registry.
   // @default true
   readonly push?: boolean;
+
+  // Authentication for the registry.
+  readonly auth?: RegistryAuth;
 }
 
 export class DockerBuild extends LocalExec {
   constructor(
     scope: Construct,
     name: string,
-    { cwd, dockerfile, tag, push }: DockerBuildOptions
+    { cwd, dockerfile, tag, push, auth }: DockerBuildOptions
   ) {
-    const pushCmd = `docker push ${tag}`;
-    const buildCmd = `docker build ${
-      dockerfile ? `-f ${dockerfile}` : ""
-    } -t ${tag} .`;
-    const commands = [buildCmd];
+    const commands = [];
+
+    if (auth) {
+      commands.push(
+        `docker login -u ${auth.userName} -p ${auth.password} ${auth.proxyEndpoint}`
+      );
+    }
+
+    commands.push(
+      `docker build ${dockerfile ? `-f ${dockerfile}` : ""} -t ${tag} .`
+    );
 
     if (push !== false) {
-      commands.push(pushCmd);
+      commands.push(`docker push ${tag}`);
     }
     super(scope, name, {
       cwd: cwd,

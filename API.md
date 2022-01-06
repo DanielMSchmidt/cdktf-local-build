@@ -334,6 +334,7 @@ const dockerBuildOptions: DockerBuildOptions = { ... }
 | --- | --- | --- |
 | [`cwd`](#cdktflocalbuilddockerbuildoptionspropertycwd)<span title="Required">*</span> | `string` | *No description.* |
 | [`tag`](#cdktflocalbuilddockerbuildoptionspropertytag)<span title="Required">*</span> | `string` | *No description.* |
+| [`auth`](#cdktflocalbuilddockerbuildoptionspropertyauth) | [`cdktf-local-build.RegistryAuth`](#cdktf-local-build.RegistryAuth) | *No description.* |
 | [`dockerfile`](#cdktflocalbuilddockerbuildoptionspropertydockerfile) | `string` | *No description.* |
 | [`push`](#cdktflocalbuilddockerbuildoptionspropertypush) | `boolean` | *No description.* |
 
@@ -359,6 +360,16 @@ public readonly tag: string;
 
 ---
 
+##### `auth`<sup>Optional</sup> <a name="cdktf-local-build.DockerBuildOptions.property.auth" id="cdktflocalbuilddockerbuildoptionspropertyauth"></a>
+
+```typescript
+public readonly auth: RegistryAuth;
+```
+
+- *Type:* [`cdktf-local-build.RegistryAuth`](#cdktf-local-build.RegistryAuth)
+
+---
+
 ##### `dockerfile`<sup>Optional</sup> <a name="cdktf-local-build.DockerBuildOptions.property.dockerfile" id="cdktflocalbuilddockerbuildoptionspropertydockerfile"></a>
 
 ```typescript
@@ -376,6 +387,56 @@ public readonly push: boolean;
 ```
 
 - *Type:* `boolean`
+
+---
+
+### RegistryAuth <a name="cdktf-local-build.RegistryAuth" id="cdktflocalbuildregistryauth"></a>
+
+#### Initializer <a name="[object Object].Initializer" id="object-objectinitializer"></a>
+
+```typescript
+import { RegistryAuth } from 'cdktf-local-build'
+
+const registryAuth: RegistryAuth = { ... }
+```
+
+#### Properties <a name="Properties" id="properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`password`](#cdktflocalbuildregistryauthpropertypassword)<span title="Required">*</span> | `string` | *No description.* |
+| [`proxyEndpoint`](#cdktflocalbuildregistryauthpropertyproxyendpoint)<span title="Required">*</span> | `string` | *No description.* |
+| [`userName`](#cdktflocalbuildregistryauthpropertyusername)<span title="Required">*</span> | `string` | *No description.* |
+
+---
+
+##### `password`<sup>Required</sup> <a name="cdktf-local-build.RegistryAuth.property.password" id="cdktflocalbuildregistryauthpropertypassword"></a>
+
+```typescript
+public readonly password: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `proxyEndpoint`<sup>Required</sup> <a name="cdktf-local-build.RegistryAuth.property.proxyEndpoint" id="cdktflocalbuildregistryauthpropertyproxyendpoint"></a>
+
+```typescript
+public readonly proxyEndpoint: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `userName`<sup>Required</sup> <a name="cdktf-local-build.RegistryAuth.property.userName" id="cdktflocalbuildregistryauthpropertyusername"></a>
+
+```typescript
+public readonly userName: string;
+```
+
+- *Type:* `string`
 
 ---
 
