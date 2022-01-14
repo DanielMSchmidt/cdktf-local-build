@@ -9,7 +9,7 @@ const project = new CDKTFConstruct({
   description:
     "A construct that encapsulates different building methods, e.g. for Node, Rust, Docker.",
 
-  devDeps: ["@dschmidt/cdktf-construct-base@0.0.6"],
+  devDeps: ["@dschmidt/cdktf-construct-base"],
   deps: [],
   peerDeps: ["cdktf-local-exec@>=0.0.3", "@cdktf/provider-null@>=0.4.90"],
   gitignore: ["test/cargo/testproject/target/"],
