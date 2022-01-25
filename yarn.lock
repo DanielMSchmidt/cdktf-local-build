@@ -1381,10 +1381,10 @@ case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdktf-local-exec@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/cdktf-local-exec/-/cdktf-local-exec-0.0.3.tgz#d350a91f2df99d96054e3a8fc6fc4cdb103a4999"
-  integrity sha512-vCuTmT2VL7fJTxi3h//yycr3FjTuvMQt9vSgppWX6dCpbQD7/t07BlGY76XIr4QC0hHkVN8b1qYH3/R8Oy4F0Q==
+cdktf-local-exec@0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/cdktf-local-exec/-/cdktf-local-exec-0.0.18.tgz#d59d79307dc395ec4f2fd43309ee3077f1814559"
+  integrity sha512-7bcJoZmwcuDQ93fuBNgh5kBYl9fFz/gXyjqqOw/7E1OgL5uEg8dUY0NxWcidr51Ggh1qd9A4mspnb0v7cdCaSw==
 
 cdktf@0.8.5:
   version "0.8.5"

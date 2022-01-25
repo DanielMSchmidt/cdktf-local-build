@@ -30,7 +30,7 @@
     },
     {
       "name": "cdktf-local-exec",
-      "version": "0.0.3",
+      "version": "0.0.18",
       "type": "build"
     },
     {
@@ -126,7 +126,7 @@
     },
     {
       "name": "cdktf-local-exec",
-      "version": ">=0.0.3",
+      "version": ">=0.0.18",
       "type": "peer"
     },
     {
