@@ -11,7 +11,7 @@ const project = new CDKTFConstruct({
 
   devDeps: ["@dschmidt/cdktf-construct-base"],
   deps: [],
-  peerDeps: ["cdktf-local-exec@>=0.0.18", "@cdktf/provider-null@>=0.4.90"],
+  peerDeps: ["cdktf-local-exec@>=0.0.20", "@cdktf/provider-null@>=0.5.0"],
   gitignore: ["test/cargo/testproject/target/"],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
