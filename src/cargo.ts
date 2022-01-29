@@ -4,9 +4,9 @@ import {
   TerraformProvider,
   TerraformResourceLifecycle,
 } from "cdktf";
-import { LocalExec } from "cdktf-local-exec";
 import { Construct } from "constructs";
 import { DockerizedBuild } from "./docker";
+import { LocalExec } from "cdktf-local-exec";
 
 export interface CargoOptions {
   /**
@@ -16,6 +16,9 @@ export interface CargoOptions {
    */
   readonly arch?: "arm" | "x86";
 
+  /**
+   * Name value in the Cargo.toml
+   */
   readonly projectName: string;
 
   // Inherited from LocalExec without command option
@@ -64,8 +67,8 @@ export class DockerizedCargoBuild extends DockerizedBuild {
     const rustVersion = options.rustVersion || "1.58";
     const image =
       options.arch === "arm"
-        ? `arm32v7/rust:${rustVersion}-slim`
-        : `amd64/rust:${rustVersion}-slim`;
+        ? `arm64v8/rust:${rustVersion}-slim`
+        : `rust:${rustVersion}`;
     const platform = options.arch === "arm" ? "linux/arm64" : "linux/x86";
     const target =
       options.arch === "arm"
@@ -86,8 +89,54 @@ export class DockerizedCargoBuild extends DockerizedBuild {
   }
 }
 
+export interface CrossOptions {
+  /**
+   * Architecture of the binary to build.
+   *
+   * @default "x86"
+   */
+  readonly arch?: "arm" | "x86";
+
+  /**
+   * Name value in the Cargo.toml
+   */
+  readonly projectName: string;
+
+  // Inherited from LocalExec without command option
+  /**
+   * @stability stable
+   */
+  readonly dependsOn?: ITerraformDependable[];
+  /**
+   * @stability stable
+   */
+  readonly provider?: TerraformProvider;
+  /**
+   * @stability stable
+   */
+  readonly lifecycle?: TerraformResourceLifecycle;
+  /**
+   * @stability stable
+   */
+  readonly triggers?: {
+    [key: string]: string;
+  };
+
+  /**
+   * The working directory to run the command in.
+   *
+   * Defaults to process.pwd().
+   *
+   * @stability stable
+   */
+  readonly cwd: string;
+}
+
 export class CrossBuild extends LocalExec {
-  constructor(scope: Construct, name: string, config: CargoOptions) {
+  private target: string;
+  private projectName: string;
+
+  constructor(scope: Construct, name: string, config: CrossOptions) {
     const target =
       config.arch === "arm"
         ? "aarch64-unknown-linux-gnu"
@@ -101,9 +150,17 @@ export class CrossBuild extends LocalExec {
       lifecycle: config.lifecycle,
       triggers: config.triggers,
     });
+    this.target = target;
+    this.projectName = config.projectName;
   }
 
   public get binaryPath() {
-    return resolve(this.cwd, "binary");
+    return resolve(
+      this.cwd,
+      "target",
+      this.target,
+      "release",
+      this.projectName
+    );
   }
 }

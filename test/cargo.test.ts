@@ -25,88 +25,93 @@ const apply = (addConstructs: (scope: Construct) => void) => {
   return outdir;
 };
 
-describe.skip("DockerizedCargoBuild", () => {
-  test("builds binary and exposes path", () => {
-    const projectName = "testproject";
-    // Create a file in the stack directory
-    const outdir = apply((stack) => {
-      const build = new DockerizedCargoBuild(stack, "myresource", {
-        projectName,
-        cwd: path.resolve(__dirname, "cargo", projectName),
-      });
-
-      new TerraformOutput(stack, "binaryPath", {
-        value: build.binaryPath,
-      });
-    });
-
-    const dir = path.resolve(outdir, "cdk.tf.json");
-    const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
-    expect(manifest).toMatchInlineSnapshot();
-    expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
+const projectName = "testproject";
+const projectPath = path.resolve(__dirname, "cargo", projectName);
+describe("rust", () => {
+  beforeEach(() => {
+    fs.rmdirSync(path.resolve(projectPath, "target"), { recursive: true });
   });
 
-  test("builds arm binary and exposes path", () => {
-    const projectName = "testproject";
-    // Create a file in the stack directory
-    const outdir = apply((stack) => {
-      const build = new DockerizedCargoBuild(stack, "myresource", {
-        projectName,
-        arch: "arm",
-        cwd: path.resolve(__dirname, "cargo", projectName),
+  describe.skip("DockerizedCargoBuild", () => {
+    test("builds binary and exposes path", () => {
+      // Create a file in the stack directory
+      const outdir = apply((stack) => {
+        const build = new DockerizedCargoBuild(stack, "myresource", {
+          projectName,
+          cwd: path.resolve(__dirname, "cargo", projectName),
+        });
+
+        new TerraformOutput(stack, "binaryPath", {
+          value: build.binaryPath,
+        });
       });
 
-      new TerraformOutput(stack, "binaryPath", {
-        value: build.binaryPath,
-      });
+      const dir = path.resolve(outdir, "cdk.tf.json");
+      const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
+      expect(manifest).toMatchInlineSnapshot();
+      expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
     });
 
-    const dir = path.resolve(outdir, "cdk.tf.json");
-    const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
-    expect(manifest).toMatchInlineSnapshot();
-    expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
-  });
-});
+    test("builds arm binary and exposes path", () => {
+      // Create a file in the stack directory
+      const outdir = apply((stack) => {
+        const build = new DockerizedCargoBuild(stack, "myresource", {
+          projectName,
+          arch: "arm",
+          cwd: path.resolve(__dirname, "cargo", projectName),
+        });
 
-describe("CrossBuild", () => {
-  test("builds binary and exposes path", () => {
-    const projectName = "testproject";
-    // Create a file in the stack directory
-    const outdir = apply((stack) => {
-      const build = new CrossBuild(stack, "myresource", {
-        projectName,
-        cwd: path.resolve(__dirname, "cargo", projectName),
+        new TerraformOutput(stack, "binaryPath", {
+          value: build.binaryPath,
+        });
       });
 
-      new TerraformOutput(stack, "binaryPath", {
-        value: build.binaryPath,
-      });
+      const dir = path.resolve(outdir, "cdk.tf.json");
+      const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
+      expect(manifest).toMatchInlineSnapshot();
+      expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
     });
-
-    const dir = path.resolve(outdir, "cdk.tf.json");
-    const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
-    expect(manifest).toMatchInlineSnapshot();
-    expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
   });
 
-  test("builds arm binary and exposes path", () => {
-    const projectName = "testproject";
-    // Create a file in the stack directory
-    const outdir = apply((stack) => {
-      const build = new CrossBuild(stack, "myresource", {
-        projectName,
-        arch: "arm",
-        cwd: path.resolve(__dirname, "cargo", projectName),
+  describe("CrossBuild", () => {
+    test("builds binary and exposes path", () => {
+      // Create a file in the stack directory
+      const outdir = apply((stack) => {
+        const build = new CrossBuild(stack, "myresource", {
+          projectName,
+          cwd: path.resolve(__dirname, "cargo", projectName),
+        });
+
+        new TerraformOutput(stack, "binaryPath", {
+          value: build.binaryPath,
+        });
       });
 
-      new TerraformOutput(stack, "binaryPath", {
-        value: build.binaryPath,
-      });
+      const dir = path.resolve(outdir, "cdk.tf.json");
+      const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
+
+      expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
     });
 
-    const dir = path.resolve(outdir, "cdk.tf.json");
-    const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
-    expect(manifest).toMatchInlineSnapshot();
-    expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
+    test.only("builds arm binary and exposes path", () => {
+      // Create a file in the stack directory
+      const outdir = apply((stack) => {
+        const build = new CrossBuild(stack, "myresource", {
+          projectName,
+          arch: "arm",
+          cwd: path.resolve(__dirname, "cargo", projectName),
+        });
+
+        new TerraformOutput(stack, "binaryPath", {
+          value: build.binaryPath,
+          staticId: true,
+        });
+      });
+
+      const dir = path.resolve(outdir, "cdk.tf.json");
+      const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
+
+      expect(fs.existsSync(manifest.output.binaryPath.value)).toBe(true);
+    });
   });
 });
