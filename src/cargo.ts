@@ -5,8 +5,8 @@ import {
   TerraformProvider,
   TerraformResourceLifecycle,
 } from "cdktf";
-import { LocalExec } from "cdktf-local-exec";
 import { Construct } from "constructs";
+import { DockerizedBuild } from "./docker";
 
 export interface CargoOptions {
   /**
@@ -44,46 +44,46 @@ export interface CargoOptions {
    * The working directory to run the command in.
    *
    * Defaults to process.pwd().
-   * If copyBeforeRun is set to true it will copy the working directory to an asset directory and take that as the base to run.
    *
    * @stability stable
    */
   readonly cwd: string;
+
   /**
-   * If set to true, the working directory will be copied to an asset directory.
+   * Rust version to compile with
    *
-   * @default true
-   * @stability stable
+   * @default 1.58
    */
-  readonly copyBeforeRun?: boolean;
+  readonly rustVersion?: string;
 }
 
 /**
  * Builds a binary using cargo inside a docker container.
  * It is built to support https://github.com/awslabs/aws-lambda-rust-runtime
  */
-export class CargoBuild extends LocalExec {
+export class CargoBuild extends DockerizedBuild {
   constructor(scope: Construct, name: string, options: CargoOptions) {
-    super(scope, name, options as any);
-
-    throw new Error("Not implemented");
-
-    // TODO: Implement this using docker action
-    //     const platform = options.arch === "arm" ? "linux/arm64" : "linux/x86";
-    //     const target =
-    //       options.arch === "arm"
-    //         ? "aarch64-unknown-linux-gnu"
-    //         : "x86_64-unknown-linux-gnu";
-    //     const command = `
-    //     docker run --platform ${platform} \
-    //   --rm --user "$(id -u)":"$(id -g)" \
-    //   -v "${options.cwd}":/usr/src/myapp -w /usr/src/myapp rust:${RUST_VERSION} \
-    //   cargo build -p lambda_runtime --example basic --release --target ${RUST_TARGET}
-
-    //     cargo build --release -p ${options.projectName} --target ${target} && cp target/${target}/release/* binary`;
+    const rustVersion = options.rustVersion || "1.58";
+    const image =
+      options.arch === "arm"
+        ? `arm32v7/rust:${rustVersion}-slim`
+        : `amd64/rust:${rustVersion}-slim`;
+    const platform = options.arch === "arm" ? "linux/arm64" : "linux/x86";
+    const target =
+      options.arch === "arm"
+        ? "aarch64-unknown-linux-gnu"
+        : "x86_64-unknown-linux-gnu";
+    super(scope, name, {
+      cwd: options.cwd,
+      platform,
+      command: `cargo build --release --target ${target}`,
+      image,
+      imageHomeDirectory: `/usr/src/${options.projectName}`,
+      setUser: true,
+    });
   }
 
-  public get binary() {
+  public get binaryPath() {
     return resolve(this.cwd, "binary");
   }
 }
