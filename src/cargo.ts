@@ -1,10 +1,10 @@
 import { resolve } from "path";
 import {
-  IResolvable,
   ITerraformDependable,
   TerraformProvider,
   TerraformResourceLifecycle,
 } from "cdktf";
+import { LocalExec } from "cdktf-local-exec";
 import { Construct } from "constructs";
 import { DockerizedBuild } from "./docker";
 
@@ -34,11 +34,9 @@ export interface CargoOptions {
   /**
    * @stability stable
    */
-  readonly triggers?:
-    | {
-        [key: string]: string;
-      }
-    | IResolvable;
+  readonly triggers?: {
+    [key: string]: string;
+  };
 
   /**
    * The working directory to run the command in.
@@ -61,7 +59,7 @@ export interface CargoOptions {
  * Builds a binary using cargo inside a docker container.
  * It is built to support https://github.com/awslabs/aws-lambda-rust-runtime
  */
-export class CargoBuild extends DockerizedBuild {
+export class DockerizedCargoBuild extends DockerizedBuild {
   constructor(scope: Construct, name: string, options: CargoOptions) {
     const rustVersion = options.rustVersion || "1.58";
     const image =
@@ -80,6 +78,28 @@ export class CargoBuild extends DockerizedBuild {
       image,
       imageHomeDirectory: `/usr/src/${options.projectName}`,
       setUser: true,
+    });
+  }
+
+  public get binaryPath() {
+    return resolve(this.cwd, "binary");
+  }
+}
+
+export class CrossBuild extends LocalExec {
+  constructor(scope: Construct, name: string, config: CargoOptions) {
+    const target =
+      config.arch === "arm"
+        ? "aarch64-unknown-linux-gnu"
+        : "x86_64-unknown-linux-gnu";
+
+    super(scope, name, {
+      command: `cross build --target ${target} --release`,
+      cwd: config.cwd,
+      dependsOn: config.dependsOn,
+      provider: config.provider,
+      lifecycle: config.lifecycle,
+      triggers: config.triggers,
     });
   }
 
