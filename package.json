@@ -71,6 +71,12 @@
     "cdktf-local-exec": ">=0.0.20",
     "constructs": "^10.0.25"
   },
+  "dependencies": {
+    "toml": "^3.0.0"
+  },
+  "bundledDependencies": [
+    "toml"
+  ],
   "keywords": [
     "cdk",
     "cdktf"

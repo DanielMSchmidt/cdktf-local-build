@@ -5,8 +5,10 @@ import {
   TerraformResourceLifecycle,
 } from "cdktf";
 import { Construct } from "constructs";
-import { DockerizedBuild } from "./docker";
 import { LocalExec } from "cdktf-local-exec";
+import * as toml from "toml";
+import { DockerizedBuild } from "./docker";
+import * as fs from "fs";
 
 export interface CargoOptions {
   /**
@@ -134,13 +136,21 @@ export interface CrossOptions {
 
 export class CrossBuild extends LocalExec {
   private target: string;
-  private projectName: string;
+  public readonly projectName: string;
 
   constructor(scope: Construct, name: string, config: CrossOptions) {
     const target =
       config.arch === "arm"
         ? "aarch64-unknown-linux-gnu"
         : "x86_64-unknown-linux-gnu";
+
+    const tomlPath = resolve(config.cwd, "Cargo.toml");
+    let parsedToml: { package: { name: string } };
+    try {
+      parsedToml = toml.parse(fs.readFileSync(tomlPath, "utf8"));
+    } catch (e) {
+      throw new Error("Could not find Cargo.toml in " + config.cwd);
+    }
 
     super(scope, name, {
       command: `cross build --target ${target} --release`,
@@ -151,7 +161,7 @@ export class CrossBuild extends LocalExec {
       triggers: config.triggers,
     });
     this.target = target;
-    this.projectName = config.projectName;
+    this.projectName = config.projectName || parsedToml.package.name;
   }
 
   public get binaryPath() {

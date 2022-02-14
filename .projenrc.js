@@ -11,6 +11,7 @@ const project = new CDKTFConstruct({
 
   devDeps: ["@dschmidt/cdktf-construct-base"],
   deps: [],
+  bundledDeps: ["toml"],
   peerDeps: ["cdktf-local-exec@>=0.0.20", "@cdktf/provider-null@>=0.5.0"],
   gitignore: ["test/cargo/testproject/target/"],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */

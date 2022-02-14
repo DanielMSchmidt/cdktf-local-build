@@ -29,7 +29,9 @@ const projectName = "testproject";
 const projectPath = path.resolve(__dirname, "cargo", projectName);
 describe("rust", () => {
   beforeEach(() => {
-    fs.rmdirSync(path.resolve(projectPath, "target"), { recursive: true });
+    try {
+      fs.rmdirSync(path.resolve(projectPath, "target"), { recursive: true });
+    } catch {}
   });
 
   describe.skip("DockerizedCargoBuild", () => {
@@ -90,10 +92,10 @@ describe("rust", () => {
       const dir = path.resolve(outdir, "cdk.tf.json");
       const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
 
-      expect(fs.existsSync(manifest.outptus.binaryPath)).toBe(true);
+      expect(fs.existsSync(manifest.output.binaryPath.value)).toBe(true);
     });
 
-    test.only("builds arm binary and exposes path", () => {
+    test("builds arm binary and exposes path", () => {
       // Create a file in the stack directory
       const outdir = apply((stack) => {
         const build = new CrossBuild(stack, "myresource", {
@@ -111,6 +113,50 @@ describe("rust", () => {
       const dir = path.resolve(outdir, "cdk.tf.json");
       const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
 
+      expect(fs.existsSync(manifest.output.binaryPath.value)).toBe(true);
+    });
+
+    test("fails if the path is nonexistant", () => {
+      // Create a file in the stack directory
+      try {
+        apply((stack) => {
+          new CrossBuild(stack, "myresource", {
+            projectName,
+            arch: "arm",
+            cwd: "/some/weird/path",
+          });
+        });
+        fail("should have thrown");
+      } catch (e) {
+        expect(String(e)).toMatchInlineSnapshot(
+          `"Error: Could not find Cargo.toml in /some/weird/path"`
+        );
+      }
+    });
+
+    test("guesses the correct project name", () => {
+      // Create a file in the stack directory
+      const outdir = apply((stack) => {
+        const build = new CrossBuild(stack, "myresource", {
+          projectName,
+          cwd: path.resolve(__dirname, "cargo", projectName),
+        });
+
+        new TerraformOutput(stack, "binaryPath", {
+          value: build.binaryPath,
+          staticId: true,
+        });
+
+        new TerraformOutput(stack, "projectName", {
+          value: build.projectName,
+          staticId: true,
+        });
+      });
+
+      const dir = path.resolve(outdir, "cdk.tf.json");
+      const manifest = JSON.parse(fs.readFileSync(dir, "utf8"));
+
+      expect(manifest.output.projectName.value).toBe("testproject");
       expect(fs.existsSync(manifest.output.binaryPath.value)).toBe(true);
     });
   });
