@@ -38,8 +38,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: danielmschmidt/cdktf-local-build:latest
   release_github:
     name: Publish to GitHub Releases
     needs: release

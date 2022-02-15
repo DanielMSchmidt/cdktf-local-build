@@ -34,8 +34,6 @@ jobs:
         with:
           name: .repo.patch
           path: .repo.patch
-    container:
-      image: danielmschmidt/cdktf-local-build:latest
   pr:
     name: Create Pull Request
     needs: upgrade

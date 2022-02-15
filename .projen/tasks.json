@@ -24,15 +24,6 @@
         }
       ]
     },
-    "buildDockerImage": {
-      "name": "buildDockerImage",
-      "description": "Build the Docker image for this projects build image.",
-      "steps": [
-        {
-          "exec": "docker build -t danielmschmidt/cdktf-local-build:latest . && docker push danielmschmidt/cdktf-local-build:latest"
-        }
-      ]
-    },
     "bump": {
       "name": "bump",
       "description": "Bumps version based on latest git tag and generates a changelog entry",

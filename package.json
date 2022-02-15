@@ -7,7 +7,6 @@
   },
   "scripts": {
     "build": "npx projen build",
-    "buildDockerImage": "npx projen buildDockerImage",
     "bump": "npx projen bump",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",

@@ -49,8 +49,6 @@ jobs:
         with:
           name: build-artifact
           path: dist
-    container:
-      image: danielmschmidt/cdktf-local-build:latest
   self-mutation:
     needs: build
     runs-on: ubuntu-latest
