@@ -71,6 +71,12 @@
     "cdktf-local-exec": ">=0.0.20",
     "constructs": "^10.0.25"
   },
+  "dependencies": {
+    "@swc/wasm-web": "^1.2.141"
+  },
+  "bundledDependencies": [
+    "@swc/wasm-web"
+  ],
   "keywords": [
     "cdk",
     "cdktf"

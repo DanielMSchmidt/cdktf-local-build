@@ -696,6 +696,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@swc/wasm-web@^1.2.141":
+  version "1.2.141"
+  resolved "https://registry.yarnpkg.com/@swc/wasm-web/-/wasm-web-1.2.141.tgz#bdc937e880fc92b0f6235494878f304a02e43178"
+  integrity sha512-KCvY8IxICYlez/0aPbxkVmzxwFgueoIMCcgph17uSTIlAUicXBEKBPA4feAlqrrsaSLhHs7wJoBQ29fdqIjGtA==
+
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@szmarczak/http-timer/-/http-timer-1.1.2.tgz#b1665e2c461a2cd92f4c1bbf50d5454de0d4b421"

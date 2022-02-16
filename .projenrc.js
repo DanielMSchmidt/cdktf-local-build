@@ -13,6 +13,7 @@ const project = new CDKTFConstruct({
   deps: [],
   peerDeps: ["cdktf-local-exec@>=0.0.20", "@cdktf/provider-null@>=0.5.0"],
   gitignore: ["test/cargo/testproject/target/"],
+  bundledDeps: ["@swc/wasm-web"],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
