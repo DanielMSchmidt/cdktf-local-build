@@ -18,6 +18,16 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: main
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          override: true
+          components: rustfmt, clippy
+      - name: Cargo add cross
+        uses: actions-rs/cargo@v1
+        with:
+          command: add cross
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
