@@ -24,10 +24,11 @@ jobs:
           toolchain: nightly
           override: true
           components: rustfmt, clippy
-      - name: Cargo add cross
+      - name: Cargo install cross
         uses: actions-rs/cargo@v1
         with:
-          command: add cross
+          command: install
+          args: cross
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies

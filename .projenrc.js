@@ -26,10 +26,11 @@ const project = new CDKTFConstruct({
       },
     },
     {
-      name: "Cargo add cross",
+      name: "Cargo install cross",
       uses: "actions-rs/cargo@v1",
       with: {
-        command: "add cross",
+        command: "install",
+        args: "cross",
       },
     },
   ],
