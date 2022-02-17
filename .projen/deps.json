@@ -120,6 +120,10 @@
       "type": "build"
     },
     {
+      "name": "toml",
+      "type": "bundled"
+    },
+    {
       "name": "@cdktf/provider-null",
       "version": ">=0.5.0",
       "type": "peer"

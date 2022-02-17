@@ -11,11 +11,33 @@ const project = new CDKTFConstruct({
 
   devDeps: ["@dschmidt/cdktf-construct-base"],
   deps: [],
+  bundledDeps: ["toml"],
   peerDeps: ["cdktf-local-exec@>=0.0.20", "@cdktf/provider-null@>=0.5.0"],
   gitignore: ["test/cargo/testproject/target/"],
+
+  workflowBootstrapSteps: [
+    {
+      name: "Install rust",
+      uses: "actions-rs/toolchain@v1",
+      with: {
+        toolchain: "nightly",
+        override: true,
+        components: "rustfmt, clippy",
+      },
+    },
+    {
+      name: "Cargo install cross",
+      uses: "actions-rs/cargo@v1",
+      with: {
+        command: "install",
+        args: "cross",
+      },
+    },
+  ],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
   // release: undefined,      /* Add release management to this project. */
 });
+
 project.synth();

@@ -1,4 +1,4 @@
-import { LocalExec } from "cdktf-local-exec";
+import { LocalExec, LocalExecOptions } from "cdktf-local-exec";
 import { Construct } from "constructs";
 
 export interface RegistryAuth {
@@ -50,6 +50,36 @@ export class DockerBuild extends LocalExec {
       cwd: cwd,
       command: commands.join(" && "),
       copyBeforeRun: false,
+    });
+  }
+}
+
+export interface DockerizedBuildOptions extends LocalExecOptions {
+  // Builder docker image used
+  readonly image: string;
+
+  // Home directory of the image
+  readonly imageHomeDirectory: string;
+
+  // Platform to run under
+  readonly platform?: string;
+
+  // Sets the user and group to the hosts user and group
+  readonly setUser: boolean;
+}
+
+// Runs an arbitrary build inside a docker container
+export class DockerizedBuild extends LocalExec {
+  constructor(scope: Construct, name: string, options: DockerizedBuildOptions) {
+    super(scope, name, {
+      ...options,
+      command: `docker run --rm ${
+        options.platform ? `--platform=${options.platform}` : ""
+      } ${options.setUser ? '--user="$(id -u)":"$(id -g)"' : ""} -v ${
+        options.cwd
+      }:${options.imageHomeDirectory} -w ${options.imageHomeDirectory} ${
+        options.image
+      } ${options.command}`,
     });
   }
 }
