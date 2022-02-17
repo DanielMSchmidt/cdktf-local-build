@@ -1,14 +1,14 @@
+import * as fs from "fs";
 import { resolve } from "path";
 import {
   ITerraformDependable,
   TerraformProvider,
   TerraformResourceLifecycle,
 } from "cdktf";
-import { Construct } from "constructs";
 import { LocalExec } from "cdktf-local-exec";
+import { Construct } from "constructs";
 import * as toml from "toml";
 import { DockerizedBuild } from "./docker";
-import * as fs from "fs";
 
 export interface CargoOptions {
   /**
