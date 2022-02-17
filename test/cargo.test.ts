@@ -86,6 +86,7 @@ describe("rust", () => {
 
         new TerraformOutput(stack, "binaryPath", {
           value: build.binaryPath,
+          staticId: true,
         });
       });
 
