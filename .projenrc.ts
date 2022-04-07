@@ -12,7 +12,7 @@ const project = new CDKTFConstruct({
   devDeps: ["@dschmidt/cdktf-construct-base"],
   deps: [],
   bundledDeps: ["toml"],
-  peerDeps: ["cdktf-local-exec@>=0.0.20", "@cdktf/provider-null@>=0.5.0"],
+  peerDeps: ["cdktf-local-exec@>=0.0.90", "@cdktf/provider-null@>=0.6.0"],
   gitignore: ["test/cargo/testproject/target/"],
 
   workflowBootstrapSteps: [

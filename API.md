@@ -245,6 +245,8 @@ The scope in which to define this construct.
 
 The scoped construct ID.
 
+Must be unique amongst siblings in the same scope
+
 ---
 
 ##### `config`<sup>Optional</sup> <a name="cdktf-local-build.NullProvider.parameter.config" id="cdktflocalbuildnullproviderparameterconfig"></a>
@@ -272,19 +274,8 @@ public resetAlias()
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| [`tfResourceType`](#cdktflocalbuildnullproviderpropertytfresourcetype)<span title="Required">*</span> | `string` | *No description.* |
 | [`aliasInput`](#cdktflocalbuildnullproviderpropertyaliasinput) | `string` | *No description.* |
 | [`alias`](#cdktflocalbuildnullproviderpropertyalias) | `string` | *No description.* |
-
----
-
-##### `tfResourceType`<sup>Required</sup> <a name="cdktf-local-build.NullProvider.property.tfResourceType" id="cdktflocalbuildnullproviderpropertytfresourcetype"></a>
-
-```typescript
-public readonly tfResourceType: string;
-```
-
-- *Type:* `string`
 
 ---
 
@@ -308,6 +299,19 @@ public readonly alias: string;
 
 ---
 
+#### Constants <a name="Constants" id="constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| [`tfResourceType`](#cdktflocalbuildnullproviderpropertytfresourcetype)<span title="Required">*</span> | `string` | *No description.* |
+
+---
+
+##### `tfResourceType` <a name="cdktf-local-build.NullProvider.property.tfResourceType" id="cdktflocalbuildnullproviderpropertytfresourcetype"></a>
+
+- *Type:* `string`
+
+---
 
 ## Structs <a name="Structs" id="structs"></a>
 
