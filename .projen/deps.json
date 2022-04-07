@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@cdktf/provider-null",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "type": "build"
     },
     {
@@ -30,7 +30,7 @@
     },
     {
       "name": "cdktf-local-exec",
-      "version": "0.0.20",
+      "version": "0.0.90",
       "type": "build"
     },
     {
@@ -130,12 +130,12 @@
     },
     {
       "name": "@cdktf/provider-null",
-      "version": ">=0.5.0",
+      "version": ">=0.6.0",
       "type": "peer"
     },
     {
       "name": "cdktf-local-exec",
-      "version": ">=0.0.20",
+      "version": ">=0.0.90",
       "type": "peer"
     },
     {

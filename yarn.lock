@@ -285,15 +285,15 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cdktf/provider-null@0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@cdktf/provider-null/-/provider-null-0.5.0.tgz#0c5fedf493d3fc96939f04c732324e3c280279c2"
-  integrity sha512-3ddce0k4xmaYEai+nzBSknu1gA0m4ANlDGHCUF+DiRQlh4epdZlzHwcZg6Z2MUuURKia7XcRCWyZIs5B9I8sMw==
+"@cdktf/provider-null@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@cdktf/provider-null/-/provider-null-0.6.0.tgz#83650bb767acea188814ace060e8cfabc48fa5c6"
+  integrity sha512-DyKcvV//8TUE/FDYNRpwZZSrhSO8UaVIS6hpp8sZencv0iYawka8508CxUBTts+x0OoPk+PPSiqxKMxg3SfZFQ==
 
-"@dschmidt/cdktf-construct-base@0.0.93":
-  version "0.0.93"
-  resolved "https://registry.yarnpkg.com/@dschmidt/cdktf-construct-base/-/cdktf-construct-base-0.0.93.tgz#208312cf9669f29fe1f2fee63c5467a6f6a2c291"
-  integrity sha512-QBes8G7X9iSPcLEl1cSZX6c+CYkOJueOUbnZ8g/ll897G1ciD8fpq9wsH9QDKHILsXIUEYTiGNe5b0g72K/DUg==
+"@dschmidt/cdktf-construct-base@0.0.94":
+  version "0.0.94"
+  resolved "https://registry.yarnpkg.com/@dschmidt/cdktf-construct-base/-/cdktf-construct-base-0.0.94.tgz#79177a396ba20a496ac52dd0ef66f0982d081fc7"
+  integrity sha512-gYLO1gSvN7a+xyg739GiAQG/jqaoFiqHWadLP4COozW0ulKbMH5MON7Fw0O7TKTC0+E/UUuyAn/4k5OI8bojdA==
   dependencies:
     projen "^0.50.9"
 
@@ -1418,10 +1418,10 @@ case@^1.6.3:
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ==
 
-cdktf-local-exec@0.0.20:
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/cdktf-local-exec/-/cdktf-local-exec-0.0.20.tgz#11971d8a58853c3ac595e38d97d552b1685d309c"
-  integrity sha512-u20KldyHmPB4WDIDBFMdOceSmqR31K+ump1gGVpHRFVVoRwt3uTUnCXhqByQc2UCvGZo0+wRXRhP35Qz4U7vsg==
+cdktf-local-exec@0.0.90:
+  version "0.0.90"
+  resolved "https://registry.yarnpkg.com/cdktf-local-exec/-/cdktf-local-exec-0.0.90.tgz#5129b31bda3649186484a175b2bba22c8cc563f6"
+  integrity sha512-tOgGnAPULMinkKUCg05fA2NgJ5wZ/WULjkQvMWE1SRs4jivjxmGt5EWxEqjBDjnPqFQ51+nF+Gu7XdhkhdiFiw==
 
 cdktf@0.10.1:
   version "0.10.1"
