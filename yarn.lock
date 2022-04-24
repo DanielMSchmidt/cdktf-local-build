@@ -290,10 +290,10 @@
   resolved "https://registry.yarnpkg.com/@cdktf/provider-null/-/provider-null-0.6.0.tgz#83650bb767acea188814ace060e8cfabc48fa5c6"
   integrity sha512-DyKcvV//8TUE/FDYNRpwZZSrhSO8UaVIS6hpp8sZencv0iYawka8508CxUBTts+x0OoPk+PPSiqxKMxg3SfZFQ==
 
-"@dschmidt/cdktf-construct-base@0.0.109":
-  version "0.0.109"
-  resolved "https://registry.yarnpkg.com/@dschmidt/cdktf-construct-base/-/cdktf-construct-base-0.0.109.tgz#88367bc94a025c36019f80ce3598c45756891df3"
-  integrity sha512-fCUNgsTGRy/BDwTO/Wx+MjC/qIPHKDwCV/UoHpOOg2xywsAGSxLCLcOd1Kxp9OSJ81g7ZmdaAXEvoCiky7gnLg==
+"@dschmidt/cdktf-construct-base@0.0.110":
+  version "0.0.110"
+  resolved "https://registry.yarnpkg.com/@dschmidt/cdktf-construct-base/-/cdktf-construct-base-0.0.110.tgz#951e9f5cc930edc94a829f1a1943195979d88da4"
+  integrity sha512-VGnMg1sJEtkc3xgC9SjulzeKXEinFj856/K50JhjsJWX8ytV5DizTPhdEXvfAsW/88BaTBDL/m0QokW2Rp0dHA==
   dependencies:
     projen "^0.50.9"
 
